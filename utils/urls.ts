@@ -1,5 +1,5 @@
 /**
- * 
+ *
  *  https://www.youtube.com/@poiseidoncoder ->true
  *  htpps://localhost:3000 -> false
  *  https://subdomain.localhost:3000 -> false
@@ -10,10 +10,10 @@
  */
 
 export function isExternalUrl(url: string, domain: string): boolean {
-    try {
-        const link = new URL(url);
-        return link.hostname !== domain && !link.hostname.endsWith(`.${domain}`);
-    } catch {
-        return false; // Return false for invalid URLs
-    }
+  try {
+    const link = new URL(url);
+    return link.hostname !== domain && !link.hostname.endsWith(`.${domain}`);
+  } catch {
+    return false; // Return false for invalid URLs
+  }
 }
