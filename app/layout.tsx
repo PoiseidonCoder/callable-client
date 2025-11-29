@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/libs/contexts/providers/theme-provider.tsx";
 import "./globals.css";
 import { ReactQueryProvider } from "@/libs/contexts/providers/react-query-provider";
 import { Toaster } from "sonner";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Toaster position="top-right" richColors />
               {children}
             </ReactQueryProvider>
+            <ThemeToggle />
           </ThemeProvider>
         </body>
       </html>

@@ -1,8 +1,9 @@
 import { LoginForm } from "@/components/common/forms/authForms/login-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GoogleButton } from "@/components/ui/google-button";
+import { AUTH_ROUTES } from "@/constants/routes";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import React from "react";
+import Link from "next/link";
 
 const LoginPage = () => {
   return (
@@ -19,18 +20,24 @@ const LoginPage = () => {
             <CardDescription className="text-muted-foreground text-lg">
               Welcome back! Please enter your credentials to access your account.
             </CardDescription>
+            <GoogleButton />
           </CardHeader>
           <CardContent className="space-y-6">
             <LoginForm />
             <div className="relative">
               <Separator className="bg-border/60" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="bg-card px-4 text-sm text-muted-foreground font-medium rounded-2xl">
-                  Or continue with email
+                <span className=" px-4 text-sm text-muted-foreground font-medium rounded-2xl">
+                  Not registered yet?
+                  <Link
+                    href={AUTH_ROUTES.REGISTER}
+                    className="font-semibold text-primary hover:text-primary/80 transition-colors underline underline-offset-2 "
+                  >
+                    Click here to Register
+                  </Link>
                 </span>
               </div>
             </div>
-            <GoogleButton />
           </CardContent>
         </Card>
       </div>
