@@ -1,0 +1,38 @@
+name: CD - Deploy to VPS
+
+on:
+  workflow_run:
+    workflows: ["CI - Build & Push Docker Image"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+
+          echo "📁 Moving to project folder"
+          cd /app/callable-client
+
+          echo "🐳 Pulling image from Docker Hub"
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest
+
+          echo "🛑 Stopping old container"
+          docker-compose down
+
+          echo "🚀 Starting new container"
+          docker-compose up -d
+
+          echo "🧹 Cleaning up Docker"
+          docker system prune -f
+
+EOF
