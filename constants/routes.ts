@@ -19,5 +19,4 @@ export const AUTH_ROUTES = {
   RESET_PASSWORD: "/reset-password",
 };
 
-
 export const CALLBACK_URL = "/login";

@@ -6,25 +6,25 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function useLogin() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return useMutation<void, ApiError, AuthRequest>({
-        mutationFn: async (payload) => {
-            await signIn("credentials", {
-                redirect: false,
-                email: payload.email,
-                password: payload.password,
-            });
-        },
+  return useMutation<void, ApiError, AuthRequest>({
+    mutationFn: async (payload) => {
+      await signIn("credentials", {
+        redirect: false,
+        email: payload.email,
+        password: payload.password,
+      });
+    },
 
-        onSuccess: () => {
-            toast.success("Login successful!");
-            router.push("/");
-            router.refresh();
-        },
+    onSuccess: () => {
+      toast.success("Login successful!");
+      router.push("/");
+      router.refresh();
+    },
 
-        onError: (error) => {
-            toast.error(error.message || "Login failed");
-        },
-    });
+    onError: (error) => {
+      toast.error(error.message || "Login failed");
+    },
+  });
 }
