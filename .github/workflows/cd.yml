@@ -19,7 +19,7 @@ jobs:
 
       - name: Copy docker-compose.yml
         run: scp -o StrictHostKeyChecking=no docker-compose.yml \
-             ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/app/callable-client/docker-compose.yml
+          ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/app/callable-client/docker-compose.yml
 
       - name: Deploy on server
         run: |
