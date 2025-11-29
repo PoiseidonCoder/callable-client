@@ -3,8 +3,7 @@ name: CD Deployment
 on:
   workflow_run:
     workflows: ["CI - Build & Push Docker Image"]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
   deploy:
@@ -12,22 +11,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # -- Checkout đúng COMMIT SHA từ workflow CI --
+      - name: Checkout repository at correct commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      # -- Debug để đảm bảo file tồn tại --
+      - name: List files
+        run: ls -la
+
+      # -- Setup SSH key --
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Copy docker-compose.yml
-        run: scp -o StrictHostKeyChecking=no docker-compose.yml \
+      # -- Copy docker-compose.yml lên server --
+      - name: Copy docker-compose.yml to server
+        run: |
+          scp -o StrictHostKeyChecking=no docker-compose.yml \
           ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/app/callable-client/docker-compose.yml
 
+      # -- Deploy container trên VPS --
       - name: Deploy on server
         run: |
           ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << EOF
             cd /app/callable-client
+
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:${{ github.event.workflow_run.head_sha }}
+
             docker stop callable-client || true
             docker rm callable-client || true
-            docker run -d -p 3000:3000 --name callable-client \
-              ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:${{ github.event.workflow_run.head_sha }}
+
+            docker run -d -p 3000:3000 \
+              --name callable-client \
+              ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:${{ github.event.workflow_run.head_sha }};
           EOF
