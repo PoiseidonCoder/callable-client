@@ -1,15 +1,23 @@
 export const navigationLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Contact", path: "/contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" },
 ];
 
-export const ROUTES = {
+export const MAIN_ROUTES = {
   HOME: "/",
   ABOUT: "/about",
   SERVICES: "/services",
   CONTACT: "/contact",
 };
 
-export const CALLBACK_URL = "/auth/callback";
+export const AUTH_ROUTES = {
+  LOGIN: "/login",
+  REGISTER: "/register",
+  FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
+};
+
+
+export const CALLBACK_URL = "/login";
