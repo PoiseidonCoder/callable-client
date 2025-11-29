@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ReactQueryProvider>
               <Toaster position="top-right" richColors />
               {children}
+              <ThemeToggle />
             </ReactQueryProvider>
-            <ThemeToggle />
           </ThemeProvider>
         </body>
       </html>
