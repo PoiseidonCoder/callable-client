@@ -9,20 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Get source code
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Login Docker Hub (đã fix lỗi xuống dòng)
       - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
-          -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
+      # Build image (latest)
       - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest .
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest .
 
+      # Push image lên Docker Hub
       - name: Push Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -32,21 +33,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # SSH vào VPS
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Copy docker-compose.yml to server
+      # Copy docker-compose.yml
+      - name: Copy docker-compose.yml to VPS
         run: |
           scp -o StrictHostKeyChecking=no docker-compose.yml \
           ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/app/callable-client/docker-compose.yml
 
-      - name: Deploy with docker-compose
+      # Chạy docker-compose để deploy
+      - name: Deploy to VPS
         run: |
           ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /app/callable-client
-
             docker-compose down --rmi all
             docker-compose pull
             docker-compose up -d

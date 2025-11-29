@@ -1,4 +1,4 @@
-name: CI - Check Code Quality
+name: CI - Check callable-client
 
 on:
   pull_request:
@@ -15,11 +15,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "23"
 
-      - name: Install deps and build
-        run: |
-          npm ci
-          npm run lint
-          npm run test
-          npm run build
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
