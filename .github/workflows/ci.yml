@@ -1,27 +1,25 @@
-name: CI - Build & Push Docker Image
+name: CI - Check Code Quality
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
 
 jobs:
-  build_and_push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login \
-            -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Build Docker image
+      - name: Install deps and build
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest .
-
-      - name: Push Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/callable-client:latest
+          npm ci
+          npm run lint
+          npm run test
+          npm run build
