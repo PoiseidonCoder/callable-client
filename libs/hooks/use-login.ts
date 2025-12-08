@@ -19,7 +19,6 @@ export default function useLogin() {
 
     onSuccess: () => {
       toast.success("Login successful!");
-      router.push("/");
       router.refresh();
     },
 

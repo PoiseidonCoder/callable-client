@@ -1,16 +1,21 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [isToggling, setIsToggling] = useState(false);
 
-  const currentTheme = theme ?? resolvedTheme;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  if (!currentTheme) return null;
+  if (!mounted) {
+    return null;
+  }
+
+  const currentTheme = theme ?? resolvedTheme;
 
   const toggleTheme = () => {
     setIsToggling(true);
@@ -35,10 +40,9 @@ export function ThemeToggle() {
         >
           <div
             className={`absolute inset-0 rounded-full transition-opacity duration-500 ease-in-out
-              ${
-                currentTheme === "dark"
-                  ? " from-blue-500/20 to-purple-500/20 opacity-0 hover:opacity-100"
-                  : " from-yellow-400/20 to-orange-400/20 opacity-0 hover:opacity-100"
+              ${currentTheme === "dark"
+                ? " from-blue-500/20 to-purple-500/20 opacity-0 hover:opacity-100"
+                : " from-yellow-400/20 to-orange-400/20 opacity-0 hover:opacity-100"
               }
             `}
           />

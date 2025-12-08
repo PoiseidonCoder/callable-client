@@ -1,81 +1,73 @@
-"use client";
+"use client"
 
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useLogin from "@/libs/hooks/use-login";
 import { loginSchema } from "@/schemas/auth.schema";
 import { AuthRequest } from "@/types/user";
-import useLogin from "@/libs/hooks/use-login";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeClosed } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
+  //State
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  //Mutation
+  const { mutateAsync: loginMutate, isPending: isLogging } = useLogin();
+  const [logingTest, setLogingTest] = useState<boolean>(false);
 
   const form = useForm({
     resolver: zodResolver(loginSchema()),
-    defaultValues: { email: "", password: "" },
+    defaultValues: {
+      email: "",
+      password: "",
+    }
   });
 
-  const { mutateAsync: loginMutate, isPending: isLogging } = useLogin();
-  const onSubmit = async (authRequestDto: AuthRequest): Promise<void> => {
-    await loginMutate(authRequestDto);
-  };
+  const onSubmit = async (authRequest: AuthRequest) => {
+    // await loginMutate(authRequest);
+    setInterval(function () {
+      console.log("mvt");
+
+    }, 50000)
+    setLogingTest(true);
+  }
 
   return (
-    <div className="space-y-6">
+    <div >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <form className="min-w-sm  space-y-5 mt-5" onSubmit={form.handleSubmit(onSubmit)} >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-semibold">Email:</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="h-12 rounded-xl border-border/60 bg-background/50 focus:bg-background transition-colors"
-                    {...field}
-                  />
+                <FormLabel>Email:</FormLabel>
+                <FormControl >
+                  <Input type="email" placeholder="Enter your email here"  {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-semibold">Password:</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter your password"
-                      className="h-12 rounded-xl border-border/60 bg-background/50 focus:bg-background transition-colors pr-12"
-                      {...field}
-                    />
+                <FormLabel>Password:</FormLabel>
+                <FormControl className="relative" >
+                  <div>
+                    <Input type={showPassword ? "text" : "password"} placeholder="Enter you password " {...field} />
                     <Button
                       type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 hover:bg-accent/50"
                       onClick={() => setShowPassword(!showPassword)}
+                      variant={"ghost"}
+                      className="absolute top-1/2 right-1 -translate-y-1/2 hover:accent-accent/50 "
                     >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {showPassword ? <Eye className="size-4" /> : <EyeClosed className="size-4" />}
                     </Button>
                   </div>
                 </FormControl>
@@ -83,23 +75,16 @@ export function LoginForm() {
               </FormItem>
             )}
           />
-
-          <Button
-            type="submit"
-            className="w-full h-12 rounded-xl from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
-            disabled={isLogging}
-          >
-            {isLogging ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                Logging in...
-              </div>
-            ) : (
-              <div>Login</div>
-            )}
-          </Button>
+          <Button className="w-full " type="submit" disabled={logingTest}>{logingTest ?
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" ></div>
+              <span>Logging in...</span>
+            </div>
+            :
+            <div className="cursor-pointer w-full">Login</div>}</Button>
         </form>
       </Form>
     </div>
   );
 }
+
