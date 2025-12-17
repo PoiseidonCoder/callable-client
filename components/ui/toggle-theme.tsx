@@ -25,8 +25,12 @@ export function ToggleTheme() {
   };
   return (
     <div>
-      <Button variant="ghost" size="icon" className="rounded-full" onClick={handleToggleTheme}>
-        {resolvedTheme === "dark" ? <Moon className="size-6" /> : <Sun className="size-6" />}
+      <Button variant="outline" size="icon" className="rounded-full" onClick={handleToggleTheme}>
+        {resolvedTheme === "dark" ? (
+          <Moon className="size-6" />
+        ) : (
+          <Sun stroke="yellow" className="size-6" />
+        )}
       </Button>
     </div>
   );

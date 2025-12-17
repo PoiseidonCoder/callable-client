@@ -1,10 +1,10 @@
 import React from "react";
-import { HeaderAuth } from "../header-auth";
+import { Header } from "../ui/header";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-      <HeaderAuth />
+      <Header />
       {children}
     </div>
   );

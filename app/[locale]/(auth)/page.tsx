@@ -1,11 +1,5 @@
-import { ToggleTheme } from "../../../components/theme-mode";
-
-const HomePage = () => {
-  return (
-    <div>
-      <ToggleTheme />
-    </div>
-  );
+const page = () => {
+  return <div>page</div>;
 };
 
-export default HomePage;
+export default page;

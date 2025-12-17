@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    image: poiseidondev/callable-client:latest
+    container_name: callable-client
+    ports:
+      - "3000:3000"
+    restart: always
