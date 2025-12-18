@@ -1,5 +1,9 @@
 export default {
-  Header: {
-    test: "This is a test string in English",
-  },
+  Nav: {
+    description: "Connect lovely with me on social media!",
+    home: "Home",
+    about: "About",
+    services: "Services",
+    contact: "Contact",
+  }
 };

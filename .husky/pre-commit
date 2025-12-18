@@ -1,1 +1,13 @@
-npx lint-staged
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running ESLint..."
+npm run lint
+
+echo "✨ Formatting with Prettier..."
+npm run format
+
+echo "🧪 Testing..."
+npm test
+
+echo "✓ Pre-commit check passed!"

@@ -1,10 +1,10 @@
 import React from "react";
-import { Header } from "../ui/header";
+import { AppSidebar } from "./app-sidebar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-      <Header />
+      <AppSidebar />
       {children}
     </div>
   );

@@ -20,7 +20,7 @@ export const Header = () => {
         </Link>
         {t("test")}
         <div className="flex justify-center items-center gap-4 mr-4">
-          <SwitchLanguage />
+          <SwitchLanguage className="" />
           <ToggleTheme />
         </div>
       </div>
