@@ -7,6 +7,21 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
 
+  // Rule only allow i18n appear ui
+  {
+    files: ["**/*.tsx"],
+    rules: {
+      "react/jsx-no-literals": [
+        "error",
+        {
+          noStrings: true,
+          allowedStrings: [" ", "-", ":", "•"],
+          ignoreProps: true,
+        },
+      ],
+    },
+  },
+
 
   {
     files: ["components/ui/toggle-theme.tsx"],

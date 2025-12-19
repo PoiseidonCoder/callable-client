@@ -13,32 +13,35 @@ import Link from "next/link";
 import { AUTH_ROUTES } from "@/constants/route";
 import { Label } from "@radix-ui/react-label";
 import { GoogleButton } from "@/components/ui/google-button";
-import { loginFormSchema } from "@/schemas/auth/login.schema";
-import { signIn, signOut, useSession } from "next-auth/react"
+import { registerFormSchema } from "@/schemas/auth/register.schema";
+import { signIn } from "next-auth/react";
+import { RegisterRequestDto } from "@/types/auth/register";
 
-const LoginPage = () => {
+const RegisterPage = () => {
 
-    const t = useTranslations("LoginPage");
+    const t = useTranslations("RegisterPage");
 
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+    const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false);
 
     const form = useForm({
-        resolver: zodResolver(loginFormSchema(t)),
+        resolver: zodResolver(registerFormSchema(t)),
         defaultValues: {
             email: "",
             password: "",
+            confirmPassword: ""
         }
     });
 
-    const onSubmit = async (loginRequestDto: LoginRequestDto) => {
-        signIn("credentials", { ...loginRequestDto, redirect: false });
+    const onSubmit = (registerRequestDto: RegisterRequestDto) => {
+        signIn("credentials", { ...registerRequestDto, redirect: false });
     }
 
     return (
         <Card className="w-[384px]">
             <CardHeader>
                 <CardTitle className="text-center text-3xl">
-                    {t("login")}
+                    {t("register")}
                 </CardTitle>
                 <CardDescription>
                     {t("description")}
@@ -78,17 +81,35 @@ const LoginPage = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className="w-full mt-3 py-2 bg-blue-700">{t("login")}</Button>
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>{t("confirmPassword")}</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Input className="py-5" type={isShowConfirmPassword ? "text" : "password"} placeholder={t("confirmPasswordPlaceholder")} {...field} />
+                                            <Button type="button" className="absolute top-0 right-1 cursor-pointer hover:bg-transparent" variant={"ghost"} onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}>
+                                                {isShowConfirmPassword ? <Eye className="size-5" /> : <EyeOff className="size-5" />}
+                                            </Button>
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" className="w-full mt-3 py-2 bg-blue-700">{t("register")}</Button>
                     </form>
                 </Form>
             </CardContent>
             <CardFooter className="flex flex-col gap-2">
                 <GoogleButton onClick={() => signIn("google")} >{t("google")}</GoogleButton>
-                <Label>
-                    <Link className="text-muted-foreground" href={AUTH_ROUTES.REGISTER} >
-                        {t("notAccount")}
+                <Label >
+                    <Link className="text-muted-foreground" href={AUTH_ROUTES.LOGIN} >
+                        {t("haveAccount")}
                         <span className="text-foreground">
-                            &nbsp;{t("suggestRegister")}
+                            &nbsp;{t("suggestLogin")}
                         </span></Link>
                 </Label>
             </CardFooter>
@@ -96,4 +117,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default RegisterPage

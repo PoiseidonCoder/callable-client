@@ -1,7 +1,10 @@
+import { TranslationType } from "@/types/schema";
 import { z } from "zod";
-export const loginSchema = () =>
-    z.object({
-        email: z.string().min(1, { message: "Email is required." }).email({ message: "Invalid email address." }),
-        password: z.string().min(1, { message: "Password is required." }).min(6, { message: "Password must be at least 6 characters long" }),
+
+export const loginFormSchema = (t: TranslationType) => {
+    return z.object({
+        email: z.string().min(1, { message: t("emailRequire") }).email({ message: t("emailInvalid") }),
+        password: z.string().min(1, { message: t("passwordRequire") }).min(6, { message: t("passwordInvalid") }),
     });
+}
 

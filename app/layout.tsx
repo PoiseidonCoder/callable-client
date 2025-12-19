@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ReactQueryProvider from "@/components/providers/react-query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import I18nProvider from "@/components/providers/i18n-provider";
@@ -45,6 +46,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
                 {children}
               </SidebarProvider>
               <Toaster position="bottom-center" />
+              <ReactQueryDevtools initialIsOpen={false} />
             </I18nProvider>
           </ThemeProvider>
         </ReactQueryProvider>

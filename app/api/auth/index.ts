@@ -1,11 +1,14 @@
-import NextAuth from "next-auth"
-import GitHub from "next-auth/providers/github"
+import { LoginRequestDto, LoginResponseDto } from "@/types/auth/login"
+import { api } from ".."
+import { AxiosResponse } from "axios";
+import { RegisterRequestDto, RegisterResponseDto } from "@/types/auth/register";
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
-    providers: [
-        GitHub({
-            clientId: process.env.GITHUB_ID!,
-            clientSecret: process.env.GITHUB_SECRET!,
-        }),
-    ],
-})
+const baseUrlAuth = "/auth"
+
+export const postLogin = async (loginRequestDto: LoginRequestDto): Promise<LoginResponseDto> => {
+    return (await api.post(`${baseUrlAuth}/login`, loginRequestDto)).data;
+}
+
+export const postRegister = async (registerRequestDto: RegisterRequestDto): Promise<RegisterResponseDto> => {
+    return (await api.post(`${baseUrlAuth}/register`, registerRequestDto)).data;
+}
