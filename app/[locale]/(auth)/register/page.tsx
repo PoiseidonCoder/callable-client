@@ -18,7 +18,7 @@ import { signIn } from "next-auth/react";
 import { RegisterRequestDto } from "@/types/auth/register";
 import useRegister from "@/hooks/use- register";
 import { toast } from "sonner";
-import { useRouter } from "@/i18n/routing";
+import { useRouter } from "@/i18n/navigation";
 
 const RegisterPage = () => {
 
@@ -48,7 +48,7 @@ const RegisterPage = () => {
     }
 
     return (
-        <Card className="w-[384px]">
+        <Card className="w-[384px] opacity-95">
             <CardHeader>
                 <CardTitle className="text-center text-3xl">
                     {t("register")}

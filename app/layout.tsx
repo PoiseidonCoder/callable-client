@@ -26,31 +26,28 @@ export const metadata: Metadata = {
   description: "Connect with your loved ones through seamless video calls.",
 };
 
-type RootLayoutProps = {
-  children: React.ReactNode;
-  params: {
-    locale: string;
-  };
-};
 
-export default async function RootLayout({ children, params }: RootLayoutProps) {
+
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 
   return (
-    <html lang={params.locale} suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
           <ThemeProvider>
-            <I18nProvider locale={params.locale}>
-              <SessionProvider>
-                <SidebarProvider defaultOpen={defaultOpen}>
-                  {children}
-                </SidebarProvider>
-              </SessionProvider>
-              <Toaster position="bottom-center" />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </I18nProvider>
+            <SessionProvider>
+              <SidebarProvider defaultOpen={defaultOpen}>
+                {children}
+              </SidebarProvider>
+            </SessionProvider>
+            <Toaster position="bottom-center" />
+            <ReactQueryDevtools initialIsOpen={false} />
           </ThemeProvider>
         </ReactQueryProvider>
       </body>

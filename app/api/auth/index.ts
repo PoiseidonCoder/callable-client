@@ -21,3 +21,5 @@ export const postRefreshToken = async (refreshTokenRequestDto: RefreshTokenReque
 export const postLoginGoogle = async (loginGoogleRequestDto: LoginGoogleRequestDto): Promise<LoginGoogleResponseDto> => {
     return (await api.post(`${baseUrlAuth}/google`, loginGoogleRequestDto)).data;
 }
+
+

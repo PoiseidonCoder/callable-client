@@ -1,6 +1,16 @@
 export default {
-  Nav: {
+  AppSidebar: {
     description: "Connect lovely with me on social media!",
+    home: "Home",
+    about: "About",
+    services: "Services",
+    contact: "Contact",
+    logout: "Logout",
+    account: "Account"
+  },
+  AppHeader: {
+    login: "Login",
+    register: "Register",
     home: "Home",
     about: "About",
     services: "Services",

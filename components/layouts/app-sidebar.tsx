@@ -1,40 +1,40 @@
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarRail,
+    Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu,
+    SidebarMenuButton, SidebarMenuItem, SidebarRail,
 } from "@/components/ui/sidebar"
-import { Link } from "@/i18n/routing";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label } from "@radix-ui/react-dropdown-menu";
 import { ChevronUp, Contact, Home, Info, PhoneForwardedIcon } from "lucide-react";
 import Image from "next/image";
-import { SwitchLanguage } from "../ui/switch-language";
-import { ToggleTheme } from "../ui/toggle-theme";
-import { useTranslations } from "next-intl";
+import { SwitchLanguage } from "../features/switch-language";
+import { ToggleTheme } from "../features/toggle-theme";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { MAIN_ROUTES } from "@/constants/route";
+import { getTranslations } from "next-intl/server";
+import { auth } from "@/auth";
+import { Button } from "../ui/button";
+import { signOut } from "next-auth/react";
+import MenuUser from "../features/user-menu";
+import { Link } from "@/i18n/navigation";
 
-export function AppSidebar() {
+export const listFunction = [
+    { name: "home", href: "/", icon: Home },
+    { name: "about", href: "/about", icon: Info },
+    { name: "services", href: "/services", icon: PhoneForwardedIcon },
+    { name: "contact", href: "/contact", icon: Contact },
+];
 
-    const t = useTranslations("Nav")
+export async function AppSidebar() {
 
-    const list = [
-        { name: "home", href: "/", icon: Home },
-        { name: "about", href: "/about", icon: Info },
-        { name: "services", href: "/services", icon: PhoneForwardedIcon },
-        { name: "contact", href: "/contact", icon: Contact },
-    ];
+    const t = await getTranslations("AppSidebar");
+
+    const session = await auth();
 
 
     return (
         <Sidebar
             collapsible="icon"
             variant="inset"
-            className="w-64 data-[collapsible=icon]:w-16 transition-all duration-300 shrink-0"
+            className="w-64 data-[collapsible=icon]:w-16 transition-all duration-300 shrink-0 bg-background/90"
         >
             <SidebarHeader>
                 <div className="flex items-center group-data-[collapsible=icon]:flex-col">
@@ -57,7 +57,7 @@ export function AppSidebar() {
             </SidebarHeader>
             <SidebarContent >
                 <SidebarMenu>
-                    {list.map((item, index) => (
+                    {listFunction.map((item, index) => (
                         <SidebarMenuItem key={index}>
                             <SidebarMenuButton asChild>
                                 <Link
@@ -77,37 +77,8 @@ export function AppSidebar() {
 
             <SidebarFooter>
                 <SidebarMenu>
-                    <SidebarMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton
-                                    className="bg-background mx-auto group-data-[collapsible=icon]:justify-center"
-                                >
-                                    <Avatar className="size-8 shrink-0 ">
-                                        <AvatarImage className="size-8 rounded-full" src="https://github.com/shadcn.png" alt="@shadcn" />
-                                        <AvatarFallback >Avatar</AvatarFallback>
-                                    </Avatar>
-                                    <Label className="overflow-hidden whitespace-nowrap text-ellipsis group-data-[collapsible=icon]:hidden">
-                                        Mai Van Thn ThiMai Van Thn Thi
-                                    </Label>
-                                    <ChevronUp className="ml-auto group-data-[collapsible=icon]:hidden" />
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent
-                                side="top"
-                                className="w-[--radix-popper-anchor-width]"
-                            >
-                                <DropdownMenuItem>
-                                    <span>Account</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Billing</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Sign out</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                    <SidebarMenuItem >
+                        <MenuUser user={session?.user} />
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>

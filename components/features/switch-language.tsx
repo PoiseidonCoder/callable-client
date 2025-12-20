@@ -2,12 +2,12 @@
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { routing } from "@/i18n/routing";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { switchLocale } from "@/i18n/switchLocale";
-import { SidebarMenuButton } from "./sidebar";
+import { SidebarMenuButton } from "../ui/sidebar";
 
 export const SwitchLanguage = ({ className }: { className: string }) => {
   const locale = useLocale();
@@ -35,7 +35,7 @@ export const SwitchLanguage = ({ className }: { className: string }) => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <SidebarMenuButton asChild>
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button variant="outline" className="flex justify-start" >
             <Image
               src={iconCountryImageNames[locale].path}
               alt={iconCountryImageNames[locale].name}
@@ -48,19 +48,17 @@ export const SwitchLanguage = ({ className }: { className: string }) => {
           </Button>
         </SidebarMenuButton>
       </DropdownMenu.Trigger>
-
       <DropdownMenu.Content className="opacity-100 z-50">
         {locales.map((lcl) => (
           <DropdownMenu.Item
             key={lcl}
             onSelect={() => handleSwitch(lcl)}
-            className="flex items-center gap-2 "
             asChild
           >
             <SidebarMenuButton asChild>
               <Button
-                variant="destructive"
-                className="bg-background flex items-center gap-2 justify-start w-(--radix-dropdown-menu-trigger-width)"
+                variant="outline"
+                className="flex justify-start w-(--radix-dropdown-menu-trigger-width)"
               >
                 <Image
                   src={iconCountryImageNames[lcl].path}
@@ -73,6 +71,7 @@ export const SwitchLanguage = ({ className }: { className: string }) => {
                   {iconCountryImageNames[lcl].name.toUpperCase()}
                 </div>
               </Button>
+
             </SidebarMenuButton>
           </DropdownMenu.Item>
         ))}

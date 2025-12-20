@@ -30,6 +30,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                     id: loginResponseDto.user.id,
                     email: loginResponseDto.user.email,
                     role: loginResponseDto.user.role,
+                    avatar: loginResponseDto.user.avatar,
                     accessToken: loginResponseDto.accessToken,
                     accessTokenExpiresAt: loginResponseDto.accessTokenExpiresAt,
                     refreshToken: loginResponseDto.refreshToken,
@@ -44,6 +45,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (user) {
                 token.id = user.id
                 token.role = user.role
+                token.avatar = user.avatar
                 token.email = user.email
                 token.accessToken = user.accessToken
                 token.accessTokenExpiresAt = user.accessTokenExpiresAt
@@ -64,6 +66,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 session.user.id = token.id
                 session.user.email = token.email
                 session.user.role = token.role
+                session.user.avatar = token.avatar
             }
 
             session.accessToken = token.accessToken

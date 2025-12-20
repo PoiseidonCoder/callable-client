@@ -1,19 +1,14 @@
-import { AppSidebar } from "@/components/layouts/app-sidebar"
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
+import I18nProvider from "@/components/providers/i18n-provider"
 
-const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
+const AppLayout = async ({ children, params }: { children: React.ReactNode, params: Promise<{ locale: string }> }) => {
+    const { locale } = await params;
 
     return (
-        <>
-            <AppSidebar />
-            <SidebarTrigger className="md:hidden" />
-            <SidebarInset className="flex flex-col min-h-screen">
-                <main>
-                    {children}
-                </main>
-            </SidebarInset>
+        <I18nProvider locale={locale}>
+            {children}
+        </I18nProvider>
 
-        </>
     )
+
 }
-export default AuthLayout
+export default AppLayout

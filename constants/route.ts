@@ -12,4 +12,6 @@ export const AUTH_ROUTES = {
     RESET_PASSWORD: "/reset-password",
 };
 
-export const CALLBACK_URL = "/login";
+export const DEFAULT_LOGIN_REDIRECT = "/profile";
+
+export const PUBLIC_ROUTES = ["/login", "/google", "/register"]

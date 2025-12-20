@@ -6,7 +6,7 @@ import { LoginRequestDto } from "@/types/auth/login";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl"
 import { useState } from "react"
-import { Eye, EyeOff, Ghost } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import { AUTH_ROUTES } from "@/constants/route";
 import { Label } from "@radix-ui/react-label";
 import { GoogleButton } from "@/components/ui/google-button";
 import { loginFormSchema } from "@/schemas/auth/login.schema";
-import { signIn, } from "next-auth/react"
+import { signIn, useSession, } from "next-auth/react"
 import { toast } from "sonner";
 
 
@@ -46,7 +46,7 @@ const LoginPage = () => {
     }
 
     return (
-        <Card className="w-[384px]">
+        <Card className="w-[384px] opacity-95">
             <CardHeader>
                 <CardTitle className="text-center text-3xl">
                     {t("login")}

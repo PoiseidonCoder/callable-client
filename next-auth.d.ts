@@ -17,6 +17,7 @@ declare module "next-auth" {
     interface User {
         email: string
         role: Role[]
+        avatar: string
         accessToken: string
         accessTokenExpiresAt: number
         refreshToken: string
