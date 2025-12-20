@@ -16,11 +16,15 @@ import { GoogleButton } from "@/components/ui/google-button";
 import { registerFormSchema } from "@/schemas/auth/register.schema";
 import { signIn } from "next-auth/react";
 import { RegisterRequestDto } from "@/types/auth/register";
+import useRegister from "@/hooks/use- register";
+import { toast } from "sonner";
+import { useRouter } from "@/i18n/routing";
 
 const RegisterPage = () => {
 
     const t = useTranslations("RegisterPage");
-
+    const { mutateAsync: register, isPending } = useRegister();
+    const router = useRouter();
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false);
 
@@ -33,8 +37,14 @@ const RegisterPage = () => {
         }
     });
 
-    const onSubmit = (registerRequestDto: RegisterRequestDto) => {
-        signIn("credentials", { ...registerRequestDto, redirect: false });
+    const onSubmit = async (registerRequestDto: RegisterRequestDto) => {
+        try {
+            await register(registerRequestDto);
+            toast.info(t("registerSuccess"));
+            router.push("/login")
+        } catch (error) {
+            toast.error(t("registerFailed"))
+        }
     }
 
     return (
@@ -99,7 +109,9 @@ const RegisterPage = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className="w-full mt-3 py-2 bg-blue-700">{t("register")}</Button>
+                        <Button type="submit" className="w-full mt-3 py-2 bg-blue-700">
+                            {isPending ? "Registering..." : t("register")}
+                        </Button>
                     </form>
                 </Form>
             </CardContent>

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
-import { postLogin } from "./app/api/auth";
+import { postLogin, postLoginGoogle, postRefreshToken } from "./app/api/auth";
 import { LoginResponseDto } from "./types/auth/login";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -22,32 +22,77 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
                 if (!email || !password) return null;
 
-                const user: LoginResponseDto = (await postLogin({ email, password, }));
+                const loginResponseDto: LoginResponseDto = (await postLogin({ email, password, }));
 
-                if (!user) return null
+                if (!loginResponseDto) return null;
 
                 return {
-                    id: user.id,
-                    email: user.email,
-                    role: user.role,
+                    id: loginResponseDto.user.id,
+                    email: loginResponseDto.user.email,
+                    role: loginResponseDto.user.role,
+                    accessToken: loginResponseDto.accessToken,
+                    accessTokenExpiresAt: loginResponseDto.accessTokenExpiresAt,
+                    refreshToken: loginResponseDto.refreshToken,
+                    refreshTokenExpiresAt: loginResponseDto.accessTokenExpiresAt
                 }
             }
         }),
     ],
     callbacks: {
-        jwt({ token, user }) {
+        async jwt({ token, user }) {
+
             if (user) {
-                token.role = user.role;
-                token.id = user.id;
+                token.id = user.id
+                token.role = user.role
+                token.email = user.email
+                token.accessToken = user.accessToken
+                token.accessTokenExpiresAt = user.accessTokenExpiresAt
+                token.refreshToken = user.refreshToken
+                token.refreshTokenExpiresAt = user.refreshTokenExpiresAt
             }
+
+            if (Date.now() / 1000 > token.accessTokenExpiresAt) {
+                const newToken = await postRefreshToken(token);
+                return { ...token, ...newToken }
+            }
+
             return token;
         },
 
         session({ session, token }) {
-            session.user.role = token.role
-            session.user.id = token.id
-            return session
+            if (session.user) {
+                session.user.id = token.id
+                session.user.email = token.email
+                session.user.role = token.role
+            }
+
+            session.accessToken = token.accessToken
+            session.accessTokenExpiresAt = token.accessTokenExpiresAt
+            session.refreshToken = token.refreshToken
+            session.refreshTokenExpiresAt = token.refreshTokenExpiresAt
+
+            return session;
         },
+        async signIn({ user, account }) {
+            if (account?.provider === "google") {
+                const idToken = account.id_token;
+                if (!idToken) {
+                    console.error("Google id_token not found");
+                    return false;
+                }
+                const loginGoogleResponse = await postLoginGoogle({ idToken, });
+                user.id = loginGoogleResponse.user.id;
+                user.email = loginGoogleResponse.user.email;
+                user.role = loginGoogleResponse.user.role;
+                user.accessToken = loginGoogleResponse.accessToken;
+                user.accessTokenExpiresAt =
+                    loginGoogleResponse.accessTokenExpiresAt;
+                user.refreshToken = loginGoogleResponse.refreshToken;
+                user.refreshTokenExpiresAt =
+                    loginGoogleResponse.refreshTokenExpiresAt;
+            }
+            return true;
+        }
     },
 
     session: { strategy: "jwt" },

@@ -4,20 +4,33 @@ import { Role } from "./types/enum-common"
 declare module "next-auth" {
     interface Session {
         user: {
-            id: string
-            role: string
+            email: string
+            role: Role[]
         } & DefaultSession["user"]
+
+        accessToken: string
+        accessTokenExpiresAt: number
+        refreshToken: string
+        refreshTokenExpiresAt: number
     }
 
     interface User {
-        id: string
-        role: Role,
+        email: string
+        role: Role[]
+        accessToken: string
+        accessTokenExpiresAt: number
+        refreshToken: string
+        refreshTokenExpiresAt: number
     }
 }
 
 declare module "next-auth/jwt" {
     interface JWT {
-        id: string
-        role: Role
+        email: string
+        role: Role[]
+        accessToken: string
+        accessTokenExpiresAt: number
+        refreshToken: string
+        refreshTokenExpiresAt: number
     }
 }

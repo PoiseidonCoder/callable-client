@@ -1,10 +1,7 @@
-import { Role } from "../enum-common"
-
-export type LoginRequestDto = {
-    email: string,
-    password: string,
+export type LoginGoogleRequestDto = {
+    idToken: string
 }
-export type LoginResponseDto = {
+export type LoginGoogleResponseDto = {
     user: {
         id: string,
         role: Role[]

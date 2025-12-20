@@ -14,11 +14,14 @@ import { AUTH_ROUTES } from "@/constants/route";
 import { Label } from "@radix-ui/react-label";
 import { GoogleButton } from "@/components/ui/google-button";
 import { loginFormSchema } from "@/schemas/auth/login.schema";
-import { signIn, signOut, useSession } from "next-auth/react"
+import { signIn, } from "next-auth/react"
+import { toast } from "sonner";
+
 
 const LoginPage = () => {
 
     const t = useTranslations("LoginPage");
+
 
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
@@ -31,7 +34,15 @@ const LoginPage = () => {
     });
 
     const onSubmit = async (loginRequestDto: LoginRequestDto) => {
-        signIn("credentials", { ...loginRequestDto, redirect: false });
+        const result = await signIn("credentials", { ...loginRequestDto, redirect: false });
+
+        if (result.error) {
+            toast.error(t("loginFailed"));
+            return;
+        }
+
+        toast.info(t("loginSuccess"));
+
     }
 
     return (

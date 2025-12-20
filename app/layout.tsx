@@ -9,6 +9,7 @@ import I18nProvider from "@/components/providers/i18n-provider";
 import { Toaster } from "sonner";
 import { cookies } from "next/headers";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,9 +43,11 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
         <ReactQueryProvider>
           <ThemeProvider>
             <I18nProvider locale={params.locale}>
-              <SidebarProvider defaultOpen={defaultOpen}>
-                {children}
-              </SidebarProvider>
+              <SessionProvider>
+                <SidebarProvider defaultOpen={defaultOpen}>
+                  {children}
+                </SidebarProvider>
+              </SessionProvider>
               <Toaster position="bottom-center" />
               <ReactQueryDevtools initialIsOpen={false} />
             </I18nProvider>

@@ -20,7 +20,9 @@ export default {
     suggestRegister: "Nhấn vào đây để đăng ký",
     google: "Đăng nhập với Google",
     login: "Đăng nhập",
-    loading: "Đang tải"
+    loading: "Đang tải",
+    loginSuccess: "Đăng nhập thành công",
+    loginFailed: "Đăng nhập thất bại vui lòng kiểm tra tài khoản hoặc mật khẩu hợp lệ"
   },
   RegisterPage: {
     email: "Email",
@@ -41,6 +43,8 @@ export default {
     suggestLogin: "Nhấn vào đây để đăng nhập",
     google: "Đăng ký với Google",
     register: "Đăng ký",
-    loading: "Đang tải"
+    loading: "Đang tải",
+    registerSuccess: "Đăng ký thành công",
+    registerFailed: "Tải khoản đã tồn tại vui lòng sử dụng tài khoản khác"
   }
 };

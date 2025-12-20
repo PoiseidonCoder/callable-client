@@ -20,7 +20,9 @@ export default {
     suggestRegister: "Click here to register",
     google: "Login with Google",
     login: "Login",
-    loading: "Installing..."
+    loading: "Installing...",
+    loginSuccess: "Login successfully",
+    loginFailed: "Login failed. Please check your account or password valid "
 
   },
   RegisterPage: {
@@ -42,7 +44,9 @@ export default {
     suggestLogin: "Click here to login",
     google: "Register with Google",
     register: "Register",
-    loading: "Installing..."
+    loading: "Installing...",
+    registerSuccess: "Register successfully",
+    registerFailed: "Account already exists. Please try new account"
   }
 
 };
