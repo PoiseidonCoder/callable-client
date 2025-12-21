@@ -1,4 +1,5 @@
 import { AppSidebar } from '@/components/layouts/app-sidebar'
+import SocketProvider from '@/components/providers/socket-provider'
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
 import React from 'react'
 
@@ -13,7 +14,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                     className='flex items-center justify-center min-h-screen w-full bg-cover bg-no-repeat'
                     style={{ backgroundImage: "url('./images/auth-bg.png')" }}
                 >
-                    {children}
+                    <SocketProvider>
+                        {children}
+                    </SocketProvider>
                 </div>
             </SidebarInset>
         </>

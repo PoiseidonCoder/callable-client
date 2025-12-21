@@ -1,9 +1,18 @@
-import React from 'react'
+'use client'
 
-const ProfilePage = () => {
+import { usePresenceStore } from "@/hooks/store/presence.store";
+
+
+export default function ProfilePage() {
+    const { isConnected } = usePresenceStore();
+
     return (
-        <div>ProfilePage</div>
+        <div>
+            <h1>Profile</h1>
+            {
+                isConnected ? "connected"
+                    : "connecting"
+            }
+        </div>
     )
 }
-
-export default ProfilePage

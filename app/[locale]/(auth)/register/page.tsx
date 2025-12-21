@@ -16,7 +16,7 @@ import { GoogleButton } from "@/components/ui/google-button";
 import { registerFormSchema } from "@/schemas/auth/register.schema";
 import { signIn } from "next-auth/react";
 import { RegisterRequestDto } from "@/types/auth/register";
-import useRegister from "@/hooks/use- register";
+import useRegister from "@/hooks/queries/use- register";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
 
