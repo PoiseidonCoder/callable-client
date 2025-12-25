@@ -32,9 +32,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                     role: loginResponseDto.user.role,
                     avatar: loginResponseDto.user.avatar,
                     accessToken: loginResponseDto.accessToken,
-                    accessTokenExpiresAt: loginResponseDto.accessTokenExpiresAt,
+                    accessTokenExpiresTime: loginResponseDto.accessTokenExpiresTime,
                     refreshToken: loginResponseDto.refreshToken,
-                    refreshTokenExpiresAt: loginResponseDto.accessTokenExpiresAt
+                    refreshTokenExpiresTime: loginResponseDto.accessTokenExpiresTime
                 }
             }
         }),
@@ -48,11 +48,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 token.avatar = user.avatar
                 token.email = user.email
                 token.accessToken = user.accessToken
-                token.accessTokenExpiresAt = user.accessTokenExpiresAt
+                token.accessTokenExpiresTime = user.accessTokenExpiresTime
                 token.refreshToken = user.refreshToken
-                token.refreshTokenExpiresAt = user.refreshTokenExpiresAt
+                token.refreshTokenExpiresTime = user.refreshTokenExpiresTime
             }
-            if (Date.now() > token.accessTokenExpiresAt) {
+            if (Date.now() > token.accessTokenExpiresTime) {
                 const newToken = await postRefreshToken(token);
                 return { ...token, ...newToken }
             }
@@ -69,29 +69,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }
 
             session.accessToken = token.accessToken
-            session.accessTokenExpiresAt = token.accessTokenExpiresAt
+            session.accessTokenExpiresTime = token.accessTokenExpiresTime
             session.refreshToken = token.refreshToken
-            session.refreshTokenExpiresAt = token.refreshTokenExpiresAt
+            session.refreshTokenExpiresTime = token.refreshTokenExpiresTime
 
             return session;
         },
         async signIn({ user, account }) {
             if (account?.provider === "google") {
                 const idToken = account.id_token;
-                if (!idToken) {
-                    console.error("Google id_token not found");
-                    return false;
-                }
+                if (!idToken) { return false; }
                 const loginGoogleResponse = await postLoginGoogle({ idToken, });
                 user.id = loginGoogleResponse.user.id;
                 user.email = loginGoogleResponse.user.email;
                 user.role = loginGoogleResponse.user.role;
                 user.accessToken = loginGoogleResponse.accessToken;
-                user.accessTokenExpiresAt =
-                    loginGoogleResponse.accessTokenExpiresAt;
+                user.accessTokenExpiresTime =
+                    loginGoogleResponse.accessTokenExpiresTime;
                 user.refreshToken = loginGoogleResponse.refreshToken;
-                user.refreshTokenExpiresAt =
-                    loginGoogleResponse.refreshTokenExpiresAt;
+                user.refreshTokenExpiresTime =
+                    loginGoogleResponse.refreshTokenExpiresTime;
             }
             return true;
         }

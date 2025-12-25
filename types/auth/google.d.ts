@@ -8,7 +8,7 @@ export type LoginGoogleResponseDto = {
         email: string,
     },
     accessToken: string,
-    accessTokenExpiresAt: number,
+    accessTokenExpiresTime: number,
     refreshToken: string,
-    refreshTokenExpiresAt: number,
+    refreshTokenExpiresTime: number,
 }

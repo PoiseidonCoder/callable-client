@@ -12,7 +12,7 @@ export type LoginResponseDto = {
         avatar: string,
     },
     accessToken: string,
-    accessTokenExpiresAt: number,
+    accessTokenExpiresTime: number,
     refreshToken: string,
-    refreshTokenExpiresAt: number,
+    refreshTokenExpiresTime: number,
 }

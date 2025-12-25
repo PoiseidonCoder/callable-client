@@ -1,17 +1,18 @@
 "use client"
 
 import { usePresenceStore } from "@/hooks/store/presence.store";
-import { useEffect } from "react";
 
 const AboutPage = () => {
     const onlineUsers = usePresenceStore(state => state.onlineUsers);
+    console.log(onlineUsers);
+
 
     return (
         <>
-            <div>list user</div>
+            <div className="bg-background p-10">list user</div>
             {
                 [...onlineUsers].map((item) => (
-                    <div>x
+                    <div>
                         {item}
                     </div>
                 ))

@@ -9,9 +9,9 @@ declare module "next-auth" {
         } & DefaultSession["user"]
 
         accessToken: string
-        accessTokenExpiresAt: number
+        accessTokenExpiresTime: number
         refreshToken: string
-        refreshTokenExpiresAt: number
+        refreshTokenExpiresTime: number
     }
 
     interface User {
@@ -19,9 +19,9 @@ declare module "next-auth" {
         role: Role[]
         avatar: string
         accessToken: string
-        accessTokenExpiresAt: number
+        accessTokenExpiresTime: number
         refreshToken: string
-        refreshTokenExpiresAt: number
+        refreshTokenExpiresTime: number
     }
 }
 
@@ -30,8 +30,8 @@ declare module "next-auth/jwt" {
         email: string
         role: Role[]
         accessToken: string
-        accessTokenExpiresAt: number
+        accessTokenExpiresTime: number
         refreshToken: string
-        refreshTokenExpiresAt: number
+        refreshTokenExpiresTime: number
     }
 }

@@ -61,11 +61,11 @@ export class ConnectSocket {
             console.log("hihi" + presenceMessageDto.presence);
 
             if (presenceMessageDto.presence == "ONLINE") {
-                store.userOnline(presenceMessageDto.email)
+                store.userOnline(presenceMessageDto.userId)
             }
 
             if (presenceMessageDto.presence == "OFFLINE") {
-                store.userOffline(presenceMessageDto.email)
+                store.userOffline(presenceMessageDto.userId)
             }
         })
         this.subscriptions.push(sub)

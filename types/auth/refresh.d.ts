@@ -4,5 +4,5 @@ export type RefreshTokenRequestDto = {
 export type RefreshTokenResponseDto = {
     accessToken: string,
     refreshToken: string,
-    accessTokenExpiresAt: number,
+    accessTokenExpiresTime: number,
 }

@@ -1,5 +1,5 @@
 
 export type PresenceMessageDto = {
-    email: string,
+    userId: number,
     presence: "ONLINE" | "OFFLINE",
 }

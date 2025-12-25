@@ -3,11 +3,11 @@ import { create } from 'zustand'
 
 export type PresenceStore = {
     isConnected: boolean
-    onlineUsers: Set<string>
+    onlineUsers: Set<number>
 
     setIsConnected: (v: boolean) => void
-    userOnline: (userId: string) => void
-    userOffline: (userId: string) => void
+    userOnline: (userId: number) => void
+    userOffline: (userId: number) => void
 }
 
 export const usePresenceStore = create<PresenceStore>((set) => ({
@@ -16,17 +16,17 @@ export const usePresenceStore = create<PresenceStore>((set) => ({
 
     setIsConnected: (v) => set({ isConnected: v }),
 
-    userOnline: (email) =>
+    userOnline: (userId) =>
         set((state) => {
             const next = new Set(state.onlineUsers)
-            next.add(email)
+            next.add(userId)
             return { onlineUsers: next }
         }),
 
-    userOffline: (email) =>
+    userOffline: (userId) =>
         set((state) => {
             const next = new Set(state.onlineUsers)
-            next.delete(email)
+            next.delete(userId)
             return { onlineUsers: next }
         })
 }))
