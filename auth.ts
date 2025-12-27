@@ -52,7 +52,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 token.refreshToken = user.refreshToken
                 token.refreshTokenExpiresTime = user.refreshTokenExpiresTime
             }
-            if (Date.now() > token.accessTokenExpiresTime) {
+            if (Date.now() > token.accessTokenExpiresTime && Date.now() < token.refreshTokenExpiresTime) {
                 const newToken = await postRefreshToken(token);
                 return { ...token, ...newToken }
             }

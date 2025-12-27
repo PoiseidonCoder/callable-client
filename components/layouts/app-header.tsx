@@ -3,7 +3,7 @@ import { ToggleTheme } from "../features/toggle-theme";
 import { SwitchLanguage } from "../features/switch-language";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@radix-ui/react-navigation-menu";
 import { AUTH_ROUTES } from "@/constants/route";
-import { listFunction } from "./app-sidebar";
+import { sidebarAppList } from "./app-sidebar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
@@ -32,7 +32,7 @@ export const AppHeader = async () => {
           </SheetTrigger>
           <SheetContent className="max-w-50" side="left">
             <SheetTitle>Callable</SheetTitle>
-            {listFunction.map(item => (
+            {sidebarAppList.map(item => (
               <div key={item.name} className="pt-2">
                 <Link className="flex gap-2 hover:opacity-50" key={item.href} href={item.href}>
                   <item.icon />{t(item.name)}
@@ -44,7 +44,7 @@ export const AppHeader = async () => {
         <NavigationMenu className="hidden sm:block">
           <NavigationMenuList className="flex items-center justify-center gap-7">
             {
-              listFunction.map(item => (
+              sidebarAppList.map(item => (
                 <NavigationMenuItem key={item.name}>
                   <NavigationMenuTrigger>
                     <Link className="flex gap-2 hover:opacity-50" href={item.href}><item.icon />{t(item.name)}</Link>

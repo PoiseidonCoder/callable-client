@@ -75,6 +75,19 @@ const RegisterPage = () => {
                         />
                         <FormField
                             control={form.control}
+                            name="fullName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>{t("fullName")}</FormLabel>
+                                    <FormControl>
+                                        <Input type="text" className="py-5" placeholder={t("fullNamePlaceholder")}  {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
                             name="password"
                             render={({ field }) => (
                                 <FormItem>

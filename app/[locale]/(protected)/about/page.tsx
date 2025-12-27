@@ -4,8 +4,6 @@ import { usePresenceStore } from "@/hooks/store/presence.store";
 
 const AboutPage = () => {
     const onlineUsers = usePresenceStore(state => state.onlineUsers);
-    console.log(onlineUsers);
-
 
     return (
         <>

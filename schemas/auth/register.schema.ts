@@ -10,6 +10,9 @@ export const registerFormSchema = (t: TranslationType) => {
         email:
             z.string().min(1, { message: t("emailRequire") })
                 .email({ message: t("emailInvalid") }),
+        fullName:
+            z.string().min(1, { message: t("fullNameRequire") })
+                .min(5, { message: t("fullNameInvalid") }),
         password:
             z.string().min(1, { message: t("passwordRequire") })
                 .min(6, { message: t("passwordInvalid") }),
