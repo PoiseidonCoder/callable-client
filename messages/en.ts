@@ -1,4 +1,48 @@
 export default {
+  RootPage: {
+    newMessage: "New Message",
+    supportNewMessage: "From message for you",
+    userOnline: "More than 10,000 people are online.",
+    inComingCall: "Incoming call",
+    supportInComingCall: "Randomly connect with strangers.",
+    title1: "Connect with people",
+    title2: "around you",
+    title3: "in a new way",
+    description: "Chat, make random calls, and share moments with people near you. Expand your network today.",
+    getStarted: "Get Started",
+    learnMore: "Learn More",
+    userCount: "Users",
+    messagePerDay: "Messages/ day",
+    cityCount: "Cities",
+    featureTitle: "Features",
+    featureSubtitle: "Everything you need to connect",
+    featureDescription: "Experience a full suite of modern social networking features, designed for location-based user connections.",
+    feature1: {
+      name: "Location-Based Matching",
+      description: "Discover and connect with users nearby for spontaneous interactions.",
+    },
+    feature2: {
+      name: "Random Chat & Call",
+      description: "Engage in random text chats or voice/video calls with nearby users.",
+    },
+    feature3: {
+      name: "Moment Sharing",
+      description: "Share photos and updates visible to users in your vicinity.",
+    },
+    feature4: {
+      name: "Real-Time Notifications",
+      description: "Receive instant alerts for messages, calls, and friend requests.",
+    },
+    feature5: {
+      name: "User Profiles",
+      description: "Create detailed profiles to showcase your interests and connect better.",
+    },
+    feature6: {
+      name: "Privacy Controls",
+      description: "Manage your visibility and interactions with robust privacy settings.",
+    },
+  },
+
   AppSidebar: {
     description: "Connect lovely with me on social media!",
     home: "Home",
@@ -7,7 +51,7 @@ export default {
     services: "Services",
     contact: "Contact",
     logout: "Logout",
-    account: "Account"
+    account: "Account",
   },
   AppHeader: {
     login: "Login",
@@ -19,7 +63,7 @@ export default {
     contact: "Contact",
   },
   FriendHeader: {
-    suggestFriend: "Suggest Friend",
+    unFriend: "Suggest Friend",
     myFriend: "Friend",
     sentedFriend: "Sended Friend",
   },
@@ -39,8 +83,7 @@ export default {
     login: "Login",
     loading: "Installing...",
     loginSuccess: "Login successfully",
-    loginFailed: "Login failed. Please check your account or password valid "
-
+    loginFailed: "Login failed. Please check your account or password valid ",
   },
   RegisterPage: {
     email: "Email",
@@ -67,7 +110,12 @@ export default {
     register: "Register",
     loading: "Installing...",
     registerSuccess: "Register successfully",
-    registerFailed: "Account already exists. Please try new account"
-  }
-
+    registerFailed: "Account already exists. Please try new account",
+  },
+  UnFriendPage: {
+    addFriend: "Add Friend",
+    remove: "Remove",
+    friendRequestSent: "Friend request sent",
+    errorFriendRequestSent: "Error sending friend request",
+  },
 };

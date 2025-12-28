@@ -1,4 +1,48 @@
 export default {
+  RootPage: {
+    newMessage: "Tin nhắn mới",
+    supportNewMessage: "Từ người gần bạn",
+    userOnline: "Hơn 10.000 người đang trực tuyến",
+    inComingCall: "Cuộc gọi đến",
+    supportInComingCall: "Kết nối ngẫu nhiên",
+    title1: "Kết nối với mọi người",
+    title2: "xung quanh bạn",
+    title3: "theo cách mới",
+    description:
+      "Nhắn tin, gọi điện ngẫu nhiên và chia sẻ khoảnh khắc với những người ở gần bạn. Mở rộng mạng lưới kết nối của bạn ngay hôm nay.",
+    getStarted: "Bắt đầu kết nối",
+    learnMore: "Tìm hiểu thêm",
+    userCount: "Người dùng",
+    messagePerDay: "Tin nhắn / ngày",
+    cityCount: "Thành phố",
+    featureTitle: "Tính năng",
+    featureSubtitle: "Mọi thứ bạn cần để kết nối",
+    featureDescription: "Trải nghiệm đầy đủ các tính năng mạng xã hội hiện đại, được thiết kế để kết nối người dùng dựa trên vị trí.",
+    feature1: {
+      name: "Kết nối theo vị trí",
+      description: "Khám phá và kết nối với người dùng ở gần bạn để tương tác một cách tự nhiên.",
+    },
+    feature2: {
+      name: "Chat & gọi ngẫu nhiên",
+      description: "Trò chuyện bằng văn bản hoặc gọi thoại/video ngẫu nhiên với người dùng ở gần.",
+    },
+    feature3: {
+      name: "Chia sẻ khoảnh khắc",
+      description: "Chia sẻ ảnh và cập nhật trạng thái hiển thị với người dùng xung quanh bạn.",
+    },
+    feature4: {
+      name: "Thông báo thời gian thực",
+      description: "Nhận thông báo tức thì cho tin nhắn, cuộc gọi và lời mời kết bạn.",
+    },
+    feature5: {
+      name: "Hồ sơ người dùng",
+      description: "Tạo hồ sơ chi tiết để thể hiện sở thích và kết nối tốt hơn.",
+    },
+    feature6: {
+      name: "Quyền riêng tư",
+      description: "Quản lý khả năng hiển thị và tương tác với các thiết lập quyền riêng tư mạnh mẽ.",
+    },
+  },
   AppSidebar: {
     description: "Kết nối dễ thương với tôi trên mạng xã hội!",
     home: "Trang chủ",
@@ -7,7 +51,7 @@ export default {
     services: "Dịch vụ",
     contact: "Liên hệ",
     logout: "Đăng xuất",
-    account: "Tài khoản"
+    account: "Tài khoản",
   },
   AppHeader: {
     login: "Đăng nhập",
@@ -19,7 +63,7 @@ export default {
     contact: "Liên hệ",
   },
   FriendHeader: {
-    suggestFriend: "Gợi ý bạn bè",
+    unFriend: "Gợi ý bạn bè",
     myFriend: "Bạn bè",
     sentedFriend: "Lời mời đã gởi",
   },
@@ -28,10 +72,6 @@ export default {
     emailPlaceholder: "Nhập email của bạn",
     emailRequire: "Vui lòng nhập email",
     emailInvalid: "Vui lòng nhập email hợp lệ",
-    fullName: "Họ và tên",
-    fullNamePlaceholder: "Nhập họ và tên của bạn",
-    fullNameRequire: "Vui lòng nhập họ và tên",
-    fullNameInvalid: "Họ và tên phải chứa ít nhất 5 kí tự",
     passwordPlaceholder: "Nhập mật khẩu của bạn",
     password: "Mật khẩu",
     passwordRequire: "Vui lòng nhập mật khẩu",
@@ -43,13 +83,17 @@ export default {
     login: "Đăng nhập",
     loading: "Đang tải",
     loginSuccess: "Đăng nhập thành công",
-    loginFailed: "Đăng nhập thất bại vui lòng kiểm tra tài khoản hoặc mật khẩu hợp lệ"
+    loginFailed: "Đăng nhập thất bại vui lòng kiểm tra tài khoản hoặc mật khẩu hợp lệ",
   },
   RegisterPage: {
     email: "Email",
     emailPlaceholder: "Nhập email của bạn",
     emailRequire: "Vui lòng nhập email",
     emailInvalid: "Vui lòng nhập email hợp lệ",
+    fullName: "Họ và tên",
+    fullNamePlaceholder: "Nhập họ và tên của bạn",
+    fullNameRequire: "Vui lòng nhập họ và tên",
+    fullNameInvalid: "Họ và tên phải chứa ít nhất 5 kí tự",
     passwordPlaceholder: "Nhập mật khẩu của bạn",
     password: "Mật khẩu",
     confirmPassword: "Nhập lại mật khẩu",
@@ -66,6 +110,12 @@ export default {
     register: "Đăng ký",
     loading: "Đang tải",
     registerSuccess: "Đăng ký thành công",
-    registerFailed: "Tải khoản đã tồn tại vui lòng sử dụng tài khoản khác"
-  }
+    registerFailed: "Tải khoản đã tồn tại vui lòng sử dụng tài khoản khác",
+  },
+  UnFriendPage: {
+    addFriend: "Thêm bạn bè",
+    remove: "Gỡ",
+    friendRequestSent: "Đã gửi lời mời kết bạn",
+    errorFriendRequestSent: "Gửi lời mời kết bạn thất bại",
+  },
 };

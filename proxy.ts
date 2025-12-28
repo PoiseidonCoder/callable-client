@@ -2,29 +2,24 @@ import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  DEFAULT_LOGIN_REDIRECT,
-  PUBLIC_ROUTES,
-} from "./constants/route";
+import { DEFAULT_LOGIN_REDIRECT, PUBLIC_ROUTES } from "./constants/route";
 
 const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  if (pathname === "/") return intlMiddleware(req);
+
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
   });
 
-  const isPublicRoute = PUBLIC_ROUTES.some(route =>
-    pathname.startsWith(route)
-  );
+  const isPublicRoute = PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
 
   if (token && isPublicRoute) {
-    return NextResponse.redirect(
-      new URL(DEFAULT_LOGIN_REDIRECT, req.url)
-    );
+    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
   }
 
   if (!token && !isPublicRoute) {

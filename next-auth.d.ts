@@ -4,8 +4,11 @@ import { Role } from "./types/enum-common"
 declare module "next-auth" {
     interface Session {
         user: {
+            id: string
             email: string
+            fullName: string
             role: Role[]
+            avatar: string
         } & DefaultSession["user"]
 
         accessToken: string
@@ -16,6 +19,7 @@ declare module "next-auth" {
 
     interface User {
         email: string
+        fullName: string
         role: Role[]
         avatar: string
         accessToken: string

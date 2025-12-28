@@ -1,49 +1,105 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { useGetSuggestFriendInfinite } from "@/hooks/queries/use-get-suggest-friend"
-import { FriendShipUserResponseDto } from "@/types/friend"
+import { useEffect } from "react";
+import Image from "next/image";
+import InfiniteScroll from "react-infinite-scroll-component";
+import useMeasure from "react-use-measure";
+import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import { useQueryClient, InfiniteData } from "@tanstack/react-query";
 
-const FriendPage = () => {
-    const pageSize = 3
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
+import { SuggestFriendSkeleton } from "@/components/skeleton/SuggestFriendSkeleton";
 
-    const {
-        data,
-        isLoading,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-    } = useGetSuggestFriendInfinite(pageSize)
+import { calcMissingItemsToFillGrid } from "@/utils/calculate";
+import { useGetUnFriend } from "@/hooks/queries/use-get-un-friend";
+import { useAddFriend } from "@/hooks/queries/use-add-friend";
 
-    if (isLoading) return <div>Loading...</div>
+import { PageResponse } from "@/types/common";
+import { FriendShipUserResponseDto } from "@/types/friend";
+import { useFilterInfiniteCache } from "@/hooks/queries/use-filter-infinite-cache";
 
-    const friends: FriendShipUserResponseDto[] =
-        data?.pages.flatMap((page) => page.data) ?? []
+const PAGE_SIZE = 12;
+const MIN_CARD_WIDTH = 200;
+const GRID_GAP = 12;
+const MIN_ROWS = 3;
 
-    return (
-        <div className="space-y-3">
-            {friends.map((user) => (
-                <div
-                    key={user.id}
-                    className="flex items-center gap-3 rounded-md border p-3"
-                >
-                    <img
-                        src={user.avatar}
-                        alt={user.fullName}
-                        className="h-10 w-10 rounded-full object-cover"
-                    />
-                    <span className="font-medium">{user.fullName}</span>
+const UnFriendPage = () => {
+  const t = useTranslations("UnFriendPage");
+  const queryClient = useQueryClient();
+  const { removeItemFromCache } = useFilterInfiniteCache<FriendShipUserResponseDto>();
+
+  const { mutateAsync: addFriend } = useAddFriend();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetUnFriend(PAGE_SIZE);
+
+  const [ref, { width }] = useMeasure();
+
+  const unFriends = data?.pages.flatMap((page) => page.data) ?? [];
+
+  useEffect(() => {
+    if (!width || !hasNextPage || isFetchingNextPage) return;
+
+    const missing = calcMissingItemsToFillGrid({
+      containerWidth: width,
+      minWidth: MIN_CARD_WIDTH,
+      gap: GRID_GAP,
+      currentItems: unFriends.length,
+      minRows: MIN_ROWS,
+    });
+
+    if (missing > 0) {
+      fetchNextPage();
+    }
+  }, [width, unFriends.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const handleAddFriend = async (addressee: number) => {
+    try {
+      await addFriend({ addressee });
+      toast.success(t("friendRequestSent"));
+      removeItemFromCache({ queryKey: ["suggest_friend"], getItemId: (friend) => friend.id }, addressee);
+    } catch {
+      toast.error(t("errorFriendRequestSent"));
+    }
+  };
+
+  return (
+    <div ref={ref} className="w-full pt-15 p-5">
+      <InfiniteScroll
+        dataLength={unFriends.length}
+        next={fetchNextPage}
+        hasMore={!!hasNextPage}
+        loader={isFetchingNextPage ? <SuggestFriendSkeleton /> : null}
+      >
+        <div className="grid gap-3 grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
+          {unFriends.map((friend) => (
+            <Card key={friend.id} className="overflow-hidden shadow-2xl">
+              <CardHeader className="p-0">
+                <div className="relative w-full aspect-4/5">
+                  <Image src={friend.avatar || "/images/default-avatar.png"} alt={friend.fullName} fill className="object-cover" />
                 </div>
-            ))}
+              </CardHeader>
 
-            <Button
-                onClick={() => fetchNextPage()}
-                disabled={!hasNextPage || isFetchingNextPage}
-            >
-                {isFetchingNextPage ? "Loading..." : "Load more"}
-            </Button>
+              <CardContent className="p-2 space-y-2">
+                <Link href={`/profile/${friend.id}`} className="text-lg font-semibold line-clamp-1">
+                  {friend.fullName}
+                </Link>
+
+                <Button onClick={() => handleAddFriend(friend.id)} className="bg-btn-gradient w-full">
+                  {t("addFriend")}
+                </Button>
+
+                <Button variant="secondary" className="w-full">
+                  {t("remove")}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-    )
-}
+      </InfiniteScroll>
+    </div>
+  );
+};
 
-export default FriendPage
+export default UnFriendPage;

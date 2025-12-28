@@ -12,14 +12,13 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             <SidebarTrigger className="md:hidden" />
             <SidebarInset className="flex flex-col min-h-screen">
                 <div
-                    className='flex items-center justify-center min-h-screen w-full bg-cover bg-no-repeat'
+                    className='flex min-h-screen w-full bg-cover bg-no-repeat'
                     style={{ backgroundImage: "url('./images/auth-bg.png')" }}
                 >
                     <SocketProvider>
                         {children}
                     </SocketProvider>
                 </div>
-                <FriendHeader />
             </SidebarInset>
         </>
     )

@@ -6,6 +6,8 @@ export type LoginGoogleResponseDto = {
         id: string,
         role: Role[]
         email: string,
+        fullName: string,
+        avatar: string,
     },
     accessToken: string,
     accessTokenExpiresTime: number,

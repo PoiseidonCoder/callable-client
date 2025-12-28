@@ -29,6 +29,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 return {
                     id: loginResponseDto.user.id,
                     email: loginResponseDto.user.email,
+                    fullName: loginResponseDto.user.fullName,
                     role: loginResponseDto.user.role,
                     avatar: loginResponseDto.user.avatar,
                     accessToken: loginResponseDto.accessToken,
@@ -44,9 +45,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
             if (user) {
                 token.id = user.id
+                token.email = user.email
+                token.fullName = user.fullName
                 token.role = user.role
                 token.avatar = user.avatar
-                token.email = user.email
                 token.accessToken = user.accessToken
                 token.accessTokenExpiresTime = user.accessTokenExpiresTime
                 token.refreshToken = user.refreshToken
@@ -64,6 +66,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (session.user) {
                 session.user.id = token.id
                 session.user.email = token.email
+                session.user.fullName = token.fullName
                 session.user.role = token.role
                 session.user.avatar = token.avatar
             }
@@ -82,7 +85,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 const loginGoogleResponse = await postLoginGoogle({ idToken, });
                 user.id = loginGoogleResponse.user.id;
                 user.email = loginGoogleResponse.user.email;
+                user.fullName = loginGoogleResponse.user.fullName;
                 user.role = loginGoogleResponse.user.role;
+                user.avatar = loginGoogleResponse.user.avatar;
                 user.accessToken = loginGoogleResponse.accessToken;
                 user.accessTokenExpiresTime =
                     loginGoogleResponse.accessTokenExpiresTime;
