@@ -1,14 +1,7 @@
 import Image from "next/image";
 import { ToggleTheme } from "../features/toggle-theme";
 import { SwitchLanguage } from "../features/switch-language";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@radix-ui/react-navigation-menu";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@radix-ui/react-navigation-menu";
 import { AUTH_ROUTES } from "@/constants/route";
 import { sidebarAppList } from "./app-sidebar";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
@@ -32,7 +25,7 @@ export const AppHeader = async () => {
             </Button>
           </SheetTrigger>
           <SheetContent className="max-w-50" side="left">
-            <SheetTitle>Callable</SheetTitle>
+            <SheetTitle>{t("app")}</SheetTitle>
             {sidebarAppList.map((item) => (
               <div key={item.name} className="pt-2">
                 <Link className="flex gap-2 hover:opacity-50" key={item.href} href={item.href}>

@@ -24,7 +24,7 @@ const MIN_CARD_WIDTH = 200;
 const GRID_GAP = 12;
 const MIN_ROWS = 3;
 
-const UnFriendPage = () => {
+const FriendRequestPage = () => {
   const t = useTranslations("UnFriendPage");
   const { removeItemFromCache } = useFilterInfiniteCache<FriendShipUserResponseDto>();
 
@@ -63,7 +63,6 @@ const UnFriendPage = () => {
 
   return (
     <div ref={ref} className="w-full pt-15 p-5">
-      <h1 className="text-2xl font-bold mb-5 bg-background">{t("title")}</h1>
       <InfiniteScroll
         dataLength={unFriends.length}
         next={fetchNextPage}
@@ -100,4 +99,4 @@ const UnFriendPage = () => {
   );
 };
 
-export default UnFriendPage;
+export default FriendRequestPage;

@@ -1,5 +1,6 @@
+import { Presence } from "../enum-common";
 
 export type PresenceMessageDto = {
-    userId: number,
-    presence: "ONLINE" | "OFFLINE",
-}
+  userId: number;
+  presence: Presence;
+};

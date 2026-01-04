@@ -7,7 +7,6 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
 
-  // Rule only allow i18n appear ui
   {
     files: ["**/*.tsx"],
     rules: {
@@ -22,21 +21,6 @@ const eslintConfig = defineConfig([
     },
   },
 
-
-  {
-    files: ["components/ui/toggle-theme.tsx"],
-    rules: {
-      "react-hooks/set-state-in-effect": "off",
-    },
-  },
-
-  {
-    files: ["components/ui/sidebar.tsx"],
-    rules: {
-      "react-hooks/purity": "off",
-    },
-  },
-
   {
     files: ["fix-tailwind-class.js"],
     rules: {
@@ -48,22 +32,17 @@ const eslintConfig = defineConfig([
     plugins: {
       "unused-imports": unusedImports,
     },
+
     rules: {
       "unused-imports/no-unused-imports": "error",
-      "unused-imports/no-unused-vars": [
-        "warn",
-        { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" }
-      ],
+      "unused-imports/no-unused-vars": ["warn", { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" }],
     },
   },
+  {
+    ignores: ["components/ui/**"],
+  },
 
-  globalIgnores([
-    ".next/**",
-    "out/**",
-    "build/**",
-    "messages/**",
-    "next-env.d.ts",
-  ]),
+  globalIgnores([".next/**", "out/**", "build/**", "messages/**", "next-env.d.ts"]),
 ]);
 
 export default eslintConfig;

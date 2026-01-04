@@ -2,11 +2,10 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginRequestDto } from "@/types/auth/login";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Eye, EyeOff, Ghost } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -41,7 +40,7 @@ const RegisterPage = () => {
       await register(registerRequestDto);
       toast.info(t("registerSuccess"));
       router.push("/login");
-    } catch (error) {
+    } catch {
       toast.error(t("registerFailed"));
     }
   };

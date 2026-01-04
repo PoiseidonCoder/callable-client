@@ -1,8 +1,6 @@
 import { AppSidebar } from '@/components/layouts/app-sidebar'
-import FriendHeader from '@/components/layouts/friend-header'
 import SocketProvider from '@/components/providers/socket-provider'
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
-import { usePathname } from '@/i18n/navigation'
 import React from 'react'
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {

@@ -21,11 +21,11 @@ import { Link } from "@/i18n/navigation";
 import { NavItem } from "@/types/common";
 
 export const sidebarAppList: NavItem = [
-  { name: "home", href: "/", icon: Home },
-  { name: "friend", href: "/friend", icon: HandshakeIcon },
-  { name: "about", href: "/about", icon: Info },
-  { name: "services", href: "/services", icon: PhoneForwardedIcon },
-  { name: "contact", href: "/contact", icon: Contact },
+  { name: "home", href: "/", icon: Home, className: "bg-gradient-to-br from-green-400 to-blue-500 text-white" },
+  { name: "friend", href: "/friend", icon: HandshakeIcon, className: "bg-gradient-to-br from-yellow-400 to-orange-500 text-white" },
+  { name: "about", href: "/about", icon: Info, className: "bg-gradient-to-br from-blue-400 to-indigo-500 text-white" },
+  { name: "services", href: "/services", icon: PhoneForwardedIcon, className: "bg-gradient-to-br from-purple-400 to-pink-500 text-white" },
+  { name: "contact", href: "/contact", icon: Contact, className: "bg-gradient-to-br from-red-400 to-rose-500 text-white" },
 ];
 
 export async function AppSidebar() {
@@ -40,7 +40,7 @@ export async function AppSidebar() {
           <Link href={MAIN_ROUTES.HOME} className="flex items-center gap-2">
             <Image src={"/images/logo-app.png"} alt="Logo App" width={50} height={50} className=" object-cover self-start" />
             <div className="group-data-[collapsible=icon]:hidden">
-              <Label className="text-3xl font-medium text-pink-400">Callable</Label>
+              <Label className="text-3xl font-medium text-pink-400">{t("app")}</Label>
               <Label className="text-[12px] text-muted-foreground max-w-32">{t("description")}</Label>
             </div>
           </Link>
@@ -56,7 +56,10 @@ export async function AppSidebar() {
             <SidebarMenuItem key={index}>
               <SidebarMenuButton asChild>
                 <Link href={item.href} className="flex mx-auto">
-                  <item.icon className="size-5" />
+                  <div className={`size-5 rounded-xl flex items-center justify-center ${item.className}`}>
+                    <item.icon size={12} />
+                  </div>
+
                   <span className="group-data-[collapsible=icon]:hidden">{t(item.name)}</span>
                 </Link>
               </SidebarMenuButton>

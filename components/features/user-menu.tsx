@@ -1,7 +1,7 @@
 "use client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Label } from "@radix-ui/react-dropdown-menu";
 import { SidebarMenuButton } from "../ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar } from "@radix-ui/react-avatar";
 import { ChevronUp } from "lucide-react";
 import { User } from "next-auth";
 import { useTranslations } from "next-intl";

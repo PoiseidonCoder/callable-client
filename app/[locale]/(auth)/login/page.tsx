@@ -14,7 +14,7 @@ import { AUTH_ROUTES, DEFAULT_LOGIN_REDIRECT } from "@/constants/route";
 import { Label } from "@radix-ui/react-label";
 import { GoogleButton } from "@/components/ui/google-button";
 import { loginFormSchema } from "@/schemas/auth/login.schema";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
 

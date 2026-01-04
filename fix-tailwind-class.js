@@ -40,7 +40,7 @@ async function processFile(filePath) {
   if (newContent !== content) {
     const newFilePath = filePath.replace(ext, `.fixed${ext}`);
     await fs.writeFile(newFilePath, newContent, "utf8");
-    console.log(`✅ Created: ${newFilePath}`);
+    console.log(` Created: ${newFilePath}`);
     fixedFiles.push({ original: filePath, fixed: newFilePath });
   }
 }

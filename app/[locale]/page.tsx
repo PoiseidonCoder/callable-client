@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AUTH_ROUTES, DEFAULT_LOGIN_REDIRECT } from "@/constants/route";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { AUTH_ROUTES } from "@/constants/route";
 import { Link } from "@/i18n/navigation";
 import { IntroduceCards } from "@/types/common";
-import { Heart, Map, MapIcon, MapMinus, MapPinCheck, MessageCircle, PhoneCall, Podcast, Share2, Shield, User } from "lucide-react";
+import { Heart, MapPinCheck, MessageCircle, PhoneCall, Share2, Shield } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const RootPage = () => {
@@ -81,15 +81,15 @@ const RootPage = () => {
       </div>
       <div className="flex justify-center gap-30">
         <div className="">
-          <p className="text-gradient text-2xl font-bold">50K+</p>
+          <p className="text-gradient text-2xl font-bold">{t("50k")}</p>
           <p className="text-muted-foreground">{t("userCount")}</p>
         </div>
         <div>
-          <p className="text-gradient text-2xl font-bold">1M+</p>
+          <p className="text-gradient text-2xl font-bold">{t("1m")}</p>
           <p className="text-muted-foreground">{t("messagePerDay")}</p>
         </div>
         <div>
-          <p className="text-gradient text-2xl font-bold">100K</p>
+          <p className="text-gradient text-2xl font-bold">{t("100k")}</p>
           <p className="text-muted-foreground">{t("cityCount")}</p>
         </div>
       </div>

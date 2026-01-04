@@ -1,5 +1,4 @@
 import { LucideIcon } from "lucide-react";
-import { UrlObject } from "url";
 
 export type PageResponse<T> = {
   data: T[];
@@ -17,6 +16,7 @@ export type NavItem = {
   name: string;
   href: string;
   icon: LucideIcon;
+  className?: string;
 }[];
 
 export type Pagination = {

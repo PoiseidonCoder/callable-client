@@ -16,6 +16,9 @@ export default {
     messagePerDay: "Tin nhắn / ngày",
     cityCount: "Thành phố",
     featureTitle: "Tính năng",
+    "50k": "50K+",
+    "1m": "1M+",
+    "100k": "100K+",
     featureSubtitle: "Mọi thứ bạn cần để kết nối",
     featureDescription: "Trải nghiệm đầy đủ các tính năng mạng xã hội hiện đại, được thiết kế để kết nối người dùng dựa trên vị trí.",
     feature1: {
@@ -44,6 +47,7 @@ export default {
     },
   },
   AppSidebar: {
+    app: "Callable",
     description: "Kết nối dễ thương với tôi trên mạng xã hội!",
     home: "Trang chủ",
     friend: "Bạn bè",
@@ -54,6 +58,7 @@ export default {
     account: "Tài khoản",
   },
   AppHeader: {
+    app: "Callable",
     login: "Đăng nhập",
     register: "Đăng ký",
     home: "Trang chủ",
@@ -66,6 +71,7 @@ export default {
     unFriend: "Gợi ý bạn bè",
     myFriend: "Bạn bè",
     sentedFriend: "Lời mời đã gởi",
+    requestFriend: "Yêu cầu kết bạn",
   },
   LoginPage: {
     email: "Email",
@@ -113,6 +119,7 @@ export default {
     registerFailed: "Tải khoản đã tồn tại vui lòng sử dụng tài khoản khác",
   },
   UnFriendPage: {
+    title: "Những người bạn có thể biết",
     addFriend: "Thêm bạn bè",
     remove: "Gỡ",
     friendRequestSent: "Đã gửi lời mời kết bạn",

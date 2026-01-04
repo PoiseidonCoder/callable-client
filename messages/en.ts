@@ -15,6 +15,9 @@ export default {
     messagePerDay: "Messages/ day",
     cityCount: "Cities",
     featureTitle: "Features",
+    "50k": "50K+",
+    "1m": "1M+",
+    "100k": "100K+",
     featureSubtitle: "Everything you need to connect",
     featureDescription: "Experience a full suite of modern social networking features, designed for location-based user connections.",
     feature1: {
@@ -44,6 +47,7 @@ export default {
   },
 
   AppSidebar: {
+    app: "Callable",
     description: "Connect lovely with me on social media!",
     home: "Home",
     friend: "Friend",
@@ -54,6 +58,7 @@ export default {
     account: "Account",
   },
   AppHeader: {
+    app: "Callable",
     login: "Login",
     register: "Register",
     home: "Home",
@@ -66,6 +71,7 @@ export default {
     unFriend: "Suggest Friend",
     myFriend: "Friend",
     sentedFriend: "Sended Friend",
+    requestFriend: "Request Friend",
   },
   LoginPage: {
     email: "Email",
@@ -113,6 +119,7 @@ export default {
     registerFailed: "Account already exists. Please try new account",
   },
   UnFriendPage: {
+    title: "People you may know",
     addFriend: "Add Friend",
     remove: "Remove",
     friendRequestSent: "Friend request sent",

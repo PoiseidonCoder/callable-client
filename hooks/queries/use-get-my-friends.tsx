@@ -1,22 +1,26 @@
-import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
-import { getUnFriend } from "@/app/api/friend";
+import { findFriendsWithFriendStatus } from "@/app/api/friend";
 import { PageResponse } from "@/types/common";
+import { FriendStatus } from "@/types/enum-common";
 import { FriendShipUserResponseDto } from "@/types/friend";
+import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 
-export const useGetUnFriend = (pageSize: number) => {
+const pageSize = 12;
+
+export const useGetMyFriends = () => {
   return useInfiniteQuery<
     PageResponse<FriendShipUserResponseDto>,
     Error,
     InfiniteData<PageResponse<FriendShipUserResponseDto>>,
-    ["suggest_friend", number],
+    ["my_friends", number],
     number
   >({
-    queryKey: ["suggest_friend", pageSize],
+    queryKey: ["my_friends", pageSize],
     initialPageParam: 0,
     queryFn: ({ pageParam }) =>
-      getUnFriend({
+      findFriendsWithFriendStatus({
         pageNo: pageParam,
         pageSize,
+        friendStatus: FriendStatus.ACCEPTED,
       }),
     getNextPageParam: (lastPage) => (lastPage.pagination.hasNext ? lastPage.pagination.page + 1 : undefined),
     retry: 1,
